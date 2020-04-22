@@ -10,11 +10,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import org.springframework.hateoas.RepresentationModel;
 
 @Entity // Default name of entity is Class name.
 //To change the entity name we can have @Entity(name="Users")
 @Table(name = "userTable")
-public class User {
+public class User extends RepresentationModel<User>{
 
 	@Id
 	@GeneratedValue
