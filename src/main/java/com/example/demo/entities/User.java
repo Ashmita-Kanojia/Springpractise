@@ -10,11 +10,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+
 import org.springframework.hateoas.RepresentationModel;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity // Default name of entity is Class name.
 //To change the entity name we can have @Entity(name="Users")
 @Table(name = "userTable")
+@JsonIgnoreProperties({"firstName","lastName"})//this will also not work for POST because they variables are nullable, if we make them true they will work
 public class User extends RepresentationModel<User>{
 
 	@Id
@@ -38,7 +43,11 @@ public class User extends RepresentationModel<User>{
 	@Column(name = "ROLE", length = 50, nullable = false)
 	private String role;
 	
-	@Column(name = "SSN", length = 50, nullable = false, unique = true)
+	//Note if we create a user with ssn it will give as an error as it is jsonignored & because of which it will send null value which is not allowed 
+	//@Column(name = "SSN", length = 50, nullable = false, unique = true)
+	//to avoid this we will make nulaable as true that means we can take null values
+	@JsonIgnore
+	@Column(name = "SSN", length = 50, nullable = true, unique = true)
 	private String ssn;
 	
 	@OneToMany(mappedBy="user")
