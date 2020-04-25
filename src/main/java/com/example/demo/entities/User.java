@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 import org.springframework.hateoas.RepresentationModel;
 
 import com.fasterxml.jackson.annotation.JsonFilter;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity // Default name of entity is Class name.
 //To change the entity name we can have @Entity(name="Users")
@@ -22,28 +23,34 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 //Part of static filtering
 //this will also not work for POST because they variables are nullable, if we make them true they will work
 
-@JsonFilter(value = "userFilter")
+//@JsonFilter(value = "userFilter")
 public class User extends RepresentationModel<User>{
 
 	@Id
 	@GeneratedValue
+	@JsonView(Views.External.class)
 	private Long id;
 
 	@NotEmpty(message="Username is Mandatory field. Please provide username")
 	@Column(name = "USER_NAME", length = 50, nullable = false, unique = true)
+	@JsonView(Views.External.class)
 	private String userName;
 	
 	@Size(min=2, message="FirstName should have atleast 2 characters")
 	@Column(name = "FIRST_NAME", length = 50, nullable = false)
+	@JsonView(Views.External.class)
 	private String firstName;
 	
 	@Column(name = "LAST_NAME", length = 50, nullable = false)
+	@JsonView(Views.External.class)
 	private String lastName;
 	
 	@Column(name = "EMAIL", length = 50, nullable = false)
+	@JsonView(Views.External.class)
 	private String email;
 	
 	@Column(name = "ROLE", length = 50, nullable = false)
+	@JsonView(Views.Internal.class)
 	private String role;
 	
 	//Note if we create a user with ssn it will give as an error as it is jsonignored & because of which it will send null value which is not allowed 
@@ -51,10 +58,12 @@ public class User extends RepresentationModel<User>{
 	//to avoid this we will make nulaable as true that means we can take null values
 	//@JsonIgnore part of static filtering
 	@Column(name = "SSN", length = 50, nullable = true, unique = true)
+	@JsonView(Views.Internal.class)
 	private String ssn;
 	
 	@OneToMany(mappedBy="user")
 	//Order object has foreign key as userId so we map it by user
+	@JsonView(Views.Internal.class)
 	private List<Order> orders;
 
 	//No argument constructor mandatory
