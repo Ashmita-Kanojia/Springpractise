@@ -9,7 +9,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages= {"com.example.demo.mappers"})
 public class DemoApplication {
 
 	public static void main(String[] args) {
