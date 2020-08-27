@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.dto.UserMapper;
 import com.example.demo.dto.UserMsDto;
 import com.example.demo.entities.User;
+import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.UserService;
 
 //Controller
@@ -26,6 +27,9 @@ public class UserController {
 	
 	@Autowired
 	private UserMapper mapper;
+	
+	@Autowired 
+	private UserRepository repo;
 	
 	@GetMapping("/getAllUsers")
 	public List<User> getAllUsers(){
@@ -67,6 +71,13 @@ public class UserController {
 	@GetMapping("/getAllUsersMsDto")
 	public List<UserMsDto> getAllUsersMsDto(){
 		return mapper.usersToUserDtos(service.getAllUser());
+	}
+	
+	@GetMapping("/getUserByMsDtoId/{id}")
+	public UserMsDto getUserMsDtoById(@PathVariable Long id) {
+		Optional<User> optionaluser = repo.findById(id);
+		System.out.println("Optional User : " + optionaluser);
+		return mapper.userToUserMsDto(optionaluser.get());
 	}
 }
 
