@@ -67,7 +67,7 @@ public class UserController {
 		return service.getUserByName(userName);
 	}
 	
-	//Map Struct
+	//Map Struct operations
 	@GetMapping("/getAllUsersMsDto")
 	public List<UserMsDto> getAllUsersMsDto(){
 		return mapper.usersToUserDtos(service.getAllUser());
