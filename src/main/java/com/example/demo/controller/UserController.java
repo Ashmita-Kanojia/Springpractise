@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dto.UserMapper;
 import com.example.demo.dto.UserMsDto;
 import com.example.demo.entities.User;
+import com.example.demo.mapper.UserMapper;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.UserService;
 

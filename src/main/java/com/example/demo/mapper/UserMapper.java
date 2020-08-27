@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.mapper;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
+import com.example.demo.dto.UserMsDto;
 import com.example.demo.entities.User;
 
 //To satisfy the spring Dependency Injection we add componentModel = "Spring"
