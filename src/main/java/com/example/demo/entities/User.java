@@ -32,6 +32,9 @@ public class User {
 	
 	@Column(name = "SSN", length = 50, nullable = false, unique = true)
 	private String ssn;
+	
+	@Column(name = "Address", length = 50, nullable = false, unique = true)
+	private String address;
 
 	//No argument constructor mandatory
 	public User() {
@@ -39,7 +42,7 @@ public class User {
 	}
 
 	//Constructor with fields Optional
-	public User(Long id, String userName, String firstName, String lastName, String email, String role, String ssn) {
+	public User(Long id, String userName, String firstName, String lastName, String email, String role, String ssn,String address) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -48,18 +51,18 @@ public class User {
 		this.email = email;
 		this.role = role;
 		this.ssn = ssn;
+		this.address = address;
 	}
-
+	//Getter & Setter Mandatory
+	public Long getId() {
+		return id;
+	}
+	
 	//ToString Optional
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", userName=" + userName + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", email=" + email + ", role=" + role + ", ssn=" + ssn + "]";
-	}
-
-	//Getter & Setter Mandatory
-	public Long getId() {
-		return id;
+				+ ", email=" + email + ", role=" + role + ", ssn=" + ssn + ", address=" + address + "]";
 	}
 
 	public void setId(Long id) {
@@ -112,6 +115,14 @@ public class User {
 
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	
