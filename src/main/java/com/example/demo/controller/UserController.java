@@ -22,10 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.example.demo.dto.UserMapper;
+import com.example.demo.dto.UserMsDto;
 import com.example.demo.entities.User;
 import com.example.demo.exceptions.UserExistsException;
 import com.example.demo.exceptions.UserNameNotFoundException;
 import com.example.demo.exceptions.UserNotFoundException;
+import com.example.demo.repositories.UserRepository;
 import com.example.demo.services.UserService;
 
 //Controller
@@ -36,7 +39,13 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
-
+	
+	@Autowired
+	private UserMapper mapper;
+	
+	@Autowired 
+	private UserRepository repo;
+	
 	@GetMapping("/getAllUsers")
 	public List<User> getAllUsers() {
 		return service.getAllUser();
@@ -97,4 +106,17 @@ public class UserController {
 		return user;
 	}
 
+	
+	//Map Struct operations
+	@GetMapping("/getAllUsersMsDto")
+	public List<UserMsDto> getAllUsersMsDto(){
+		return mapper.usersToUserDtos(service.getAllUser());
+	}
+	
+	@GetMapping("/getUserByMsDtoId/{id}")
+	public UserMsDto getUserMsDtoById(@PathVariable Long id) {
+		Optional<User> optionaluser = repo.findById(id);
+		System.out.println("Optional User : " + optionaluser);
+		return mapper.userToUserMsDto(optionaluser.get());
+	}
 }
