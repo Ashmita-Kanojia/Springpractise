@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dto.UserMapper;
+import com.example.demo.dto.UserMsDto;
 import com.example.demo.entities.User;
 import com.example.demo.services.UserService;
 
@@ -21,6 +23,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	private UserMapper mapper;
 	
 	@GetMapping("/getAllUsers")
 	public List<User> getAllUsers(){
@@ -58,5 +63,10 @@ public class UserController {
 		return service.getUserByName(userName);
 	}
 	
+	//Map Struct
+	@GetMapping("/getAllUsersMsDto")
+	public List<UserMsDto> getAllUsersMsDto(){
+		return mapper.usersToUserDtos(service.getAllUser());
+	}
 }
 
